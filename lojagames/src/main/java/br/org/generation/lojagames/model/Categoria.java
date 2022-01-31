@@ -26,9 +26,9 @@ public class Categoria {
 	@NotBlank(message = "O campo Tipo é obrigatório e não aceita espaços em branco!")
 	private String tipo;
 	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("categoria")
-	private List<Categoria> categoria;
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("usuario")
+	private List<Usuario> usuario;
 
 	public Long getId() {
 		return id;
@@ -46,12 +46,12 @@ public class Categoria {
 		this.tipo = tipo;
 	}
 
-	public List<Categoria> getCategoria() {
-		return categoria;
+	public List<Usuario> getUsuario() {
+		return usuario;
 	}
 
-	public void setCategoria(List<Categoria> categoria) {
-		this.categoria = categoria;
+	public void setUsuario(List<Usuario> usuario) {
+		this.usuario = usuario;
 	}
 	
 	
