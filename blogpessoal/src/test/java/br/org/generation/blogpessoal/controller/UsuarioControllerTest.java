@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import br.org.generation.blogpessoal.model.Usuario;
+import br.org.generation.blogpessoal.repository.UsuarioRepository;
 import br.org.generation.blogpessoal.service.UsuarioService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -32,6 +33,9 @@ public class UsuarioControllerTest {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	
 	@Test
@@ -115,6 +119,20 @@ public class UsuarioControllerTest {
 				
 	}
 	
+	@Test
+	@Order(5)
+	@DisplayName("Procurar usuário por ID")
+	public void procurarUsuariosPorId() {
+		
+		Usuario usuario = usuarioRepository.save(new Usuario(0L, 
+				"Sara Braga", "sara_braga@email.com.br", "sara1234", " "));
+	
+		ResponseEntity<String> resposta = testRestTemplate
+			.withBasicAuth("root", "root")
+			.exchange("/usuarios/"+usuario.getId(), HttpMethod.GET, null, String.class);
+
+		assertEquals(HttpStatus.OK, resposta.getStatusCode());
+	}
 	
 }
 	
